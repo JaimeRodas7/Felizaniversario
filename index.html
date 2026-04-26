@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversario ❤️ </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+ 
+<body>
+
+    <video id="background-video" autoplay loop muted>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <div id="book" class="book">
+        <div class="spiral"></div>
+        <div class="back-cover"></div>
+
+        <div id="p1" class="paper">
+            <div class="front">
+                <div id="f1" class="front-content">
+                    <div class="page-main-content">
+                        <h1>Nuestro Primer Año</h1>
+                        <p>365 días después, sigo eligiendote cada mañana... 🌹</p>
+                        <img src="f1.JPEG" alt="Portada" class="cover-image">
+                    </div>
+                    <button class="next-btn">Sí, abrir &rarr;</button>
+                </div>
+            </div>
+            <div class="back">
+                <div id="b1" class="back-content">
+                    <div class="page-main-content">
+                        <h2>Donde Todo Empezó </h2>
+                        <p>Parece que fue ayer cuando empezamos este viaje. Gracias por ser mi mejor aventura de este año.</p>
+                    </div>
+                    <button class="prev-btn">&larr; Anterior</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="p2" class="paper">
+            <div class="front">
+                <div id="f2" class="front-content">
+                    <div class="page-main-content">
+                        <img src="f2.JPEG" alt="Foto Juntos 1" class="page-image">
+                        <p style="margin-top:10px; margin-bottom: 20px;">Cada mes a tu lado ha sido un regalo que guardo en el corazón.</p>
+                    </div>
+                    <button class="next-btn">Siguiente &rarr;</button>
+                </div>
+            </div>
+            <div class="back">
+                <div id="b2" class="back-content">
+                    <div class="page-main-content">
+                        <img src="f3.JPEG" alt="Foto Juntos 2" class="page-image">
+                        <p style="margin-top:10px; margin-bottom: 20px;">Gracias por la risas, el apoyo y por amarme tal como soy.</p>
+                    </div>
+                    <button class="prev-btn">&larr; Anterior</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="p3" class="paper">
+            <div class="front">
+                <div id="f3" class="front-content">
+                    <div class="page-main-content">
+                        <h2>Por Muchos más ❤️</h2>
+                        <p>Este es solo el primer capítulo de una historia que quiero escribir contigo por siempre. Mi Esposa.</p>
+                    </div>
+                    <button class="next-btn">Siguiente &rarr;</button>
+                </div>
+            </div>
+            <div class="back">
+                <div id="b3" class="back-content">
+                    <div class="page-main-content">
+                        <h1>¡Feliz Aniversario!</h1>
+                        <p>Te amo mas de lo que las palabras pueden decir. Por la eternidad juntos. 💖</p>
+                        <img src="f4.JPEG" alt="Final" class="cover-image">
+                    </div>
+                    <button class="prev-btn">&larr; Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lock-modal" class="hidden">
+        <div class="modal-content">
+            <div class="floating-hearts">💖</div>
+            <div class="lock-icon">🔒✨</div>
+            <h2>Acceso al Corazón</h2>
+            <p>Para ver lo que siento por ti, ingresa nuestra fecha especial o la clave secreta:</p>
+            
+            <input type="password" id="password-input" placeholder="Ej: 030303" autocomplete="off">
+            
+            <div class="modal-buttons">
+                <button id="unlock-btn">Desbloquear ❤️</button>
+                <button id="close-modal-btn">Cancelar</button>
+            </div>
+            <p id="error-message">Ups, esa no es la clave 💔</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+ 
+</html>
