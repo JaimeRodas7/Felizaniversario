@@ -1,71 +1,61 @@
-const book = document.querySelector("#book");
-const allPapers = document.querySelectorAll(".paper");
+const book        = document.querySelector("#book");
+const allPapers   = document.querySelectorAll(".paper");
 const nextButtons = document.querySelectorAll(".next-btn");
 const prevButtons = document.querySelectorAll(".prev-btn");
 
-// Elementos del candado
-const lockModal = document.querySelector("#lock-modal");
+const lockModal     = document.querySelector("#lock-modal");
 const passwordInput = document.querySelector("#password-input");
-const unlockBtn = document.querySelector("#unlock-btn");
+const unlockBtn     = document.querySelector("#unlock-btn");
 const closeModalBtn = document.querySelector("#close-modal-btn");
-const errorMessage = document.querySelector("#error-message");
+const errorMessage  = document.querySelector("#error-message");
 
 const numOfPapers = allPapers.length;
 const maxLocation = numOfPapers + 1;
 let currentLocation = 1;
-let isBookUnlocked = false; 
-const SECRET_KEY = "260425"; 
+let isBookUnlocked  = false;
+const SECRET_KEY    = "260425";
 
 allPapers.forEach((paper, index) => {
     paper.style.zIndex = (numOfPapers - index) + numOfPapers;
 });
 
-nextButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
-        e.stopPropagation();
+function isMobile() { return window.innerWidth <= 768; }
 
+function openBook() {
+    if (!isMobile()) {
+        book.classList.add("is-open");
+    }
+    // En móvil no hay desplazamiento: las dos páginas ya están lado a lado
+}
+function closeBook() {
+    book.classList.remove("is-open");
+}
+
+/* ── Navegación ── */
+nextButtons.forEach(btn => {
+    btn.addEventListener("click", e => {
+        e.stopPropagation();
         if (currentLocation === 1 && !isBookUnlocked) {
-            showLockModal(); 
+            showLockModal();
         } else {
-            goNextPage(); 
+            goNextPage();
         }
     });
 });
 
-prevButtons.forEach(button => {
-    button.addEventListener("click", (e) => {
+prevButtons.forEach(btn => {
+    btn.addEventListener("click", e => {
         e.stopPropagation();
         goPrevPage();
     });
 });
 
-
-// Reemplaza tus funciones actuales por estas:
-
-function openBook() {
-    // Si la pantalla es ancha (PC), desplaza el libro. Si es pequeña (Celular), déjalo centrado.
-    if (window.innerWidth > 600) {
-        book.style.transform = "translateX(50%)";
-    } else {
-        book.style.transform = "translateX(0%)";
-    }
-}
-
-function closeBook() {
-    book.style.transform = "translateX(0%)";
-}
-
 function goNextPage() {
     if (currentLocation < maxLocation) {
-        if (currentLocation === 1) {
-            openBook();
-        }
-        const paperToFlip = document.querySelector(`#p${currentLocation}`);
-        paperToFlip.classList.add("flipped");
-        
-        setTimeout(() => {
-            paperToFlip.style.zIndex = currentLocation;
-        }, 600); 
+        if (currentLocation === 1) openBook();
+        const paper = document.querySelector(`#p${currentLocation}`);
+        paper.classList.add("flipped");
+        setTimeout(() => { paper.style.zIndex = currentLocation; }, 600);
         currentLocation++;
     }
 }
@@ -73,46 +63,36 @@ function goNextPage() {
 function goPrevPage() {
     if (currentLocation > 1) {
         currentLocation--;
-        const paperToUnflip = document.querySelector(`#p${currentLocation}`);
-        paperToUnflip.classList.remove("flipped");
-        paperToUnflip.style.zIndex = (numOfPapers - (currentLocation - 1)) + numOfPapers;
-        if (currentLocation === 1) {
-            closeBook();
-        }
+        const paper = document.querySelector(`#p${currentLocation}`);
+        paper.classList.remove("flipped");
+        paper.style.zIndex = (numOfPapers - (currentLocation - 1)) + numOfPapers;
+        if (currentLocation === 1) closeBook();
     }
 }
 
-
+/* ── Modal ── */
 function showLockModal() {
     lockModal.classList.add("show");
-    passwordInput.value = ""; // Limpiar input
+    passwordInput.value = "";
     errorMessage.style.display = "none";
-    passwordInput.focus();
+    setTimeout(() => passwordInput.focus(), 300);
 }
-
-function hideLockModal() {
-    lockModal.classList.remove("show");
-}
+function hideLockModal() { lockModal.classList.remove("show"); }
 
 function checkPassword() {
-    if (passwordInput.value === SECRET_KEY){
-        // CLAVE CORRECTA
-        isBookUnlocked = true; 
+    if (passwordInput.value === SECRET_KEY) {
+        isBookUnlocked = true;
         hideLockModal();
-        goNextPage(); 
+        goNextPage();
     } else {
         errorMessage.style.display = "block";
-        passwordInput.classList.add("shake"); 
+        passwordInput.classList.add("shake");
         setTimeout(() => passwordInput.classList.remove("shake"), 500);
     }
 }
 
 unlockBtn.addEventListener("click", checkPassword);
-
 closeModalBtn.addEventListener("click", hideLockModal);
-
-passwordInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-        checkPassword();
-    }
+passwordInput.addEventListener("keypress", e => {
+    if (e.key === "Enter") checkPassword();
 });
